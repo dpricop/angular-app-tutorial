@@ -1,27 +1,56 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>Menu</mat-toolbar>
-    <mat-nav-list>
+
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [opened]="false">
+    <mat-toolbar color="primary">
+      <span>Menu</span>
+
+      <span class="example-spacer"></span>
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()">
+        <mat-icon aria-label="Side nav toggle icon">arrow_back</mat-icon>
+      </button>
+    </mat-toolbar>
+    <mat-nav-list dense="true">
       <a mat-list-item routerLink="/test">Test</a>
       <a mat-list-item routerLink="/">Redirect to Test</a>
       <a mat-list-item routerLink="/test-component">Test Component</a>
     </mat-nav-list>
   </mat-sidenav>
+
   <mat-sidenav-content>
     <mat-toolbar color="primary">
       <button
         type="button"
         aria-label="Toggle sidenav"
         mat-icon-button
-        (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
+        (click)="drawer.toggle()">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
+
       <span>angular-app-tutorial</span>
+      <span class="example-spacer"></span>
+      <button mat-icon-button  [matMenuTriggerFor]="userSubMenu">
+        <mat-icon>person</mat-icon>
+      </button>
+
+      <mat-menu #userSubMenu="matMenu" xPosition="before">
+        <button mat-menu-item>
+          <mat-icon>voicemail</mat-icon>
+          <span>Tasks</span>
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item>
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+
     </mat-toolbar>
+
     <router-outlet></router-outlet>
+
   </mat-sidenav-content>
 </mat-sidenav-container>
