@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TestCmpComponent } from "./test-cmp/test-cmp.component";
+import { TestCmpComponent } from "./_components/test-cmp/test-cmp.component";
 
 const routes: Routes = [
   { path: 'test', component: TestCmpComponent },
