@@ -14,6 +14,7 @@
       </button>
     </mat-toolbar>
     <mat-nav-list dense="true">
+      <a mat-list-item routerLink="/tasks">Tasks</a>
       <a mat-list-item routerLink="/test">Test</a>
       <a mat-list-item routerLink="/">Redirect to Test</a>
       <a mat-list-item routerLink="/test-component">Test Component</a>
@@ -37,19 +38,17 @@
       </button>
 
       <mat-menu #userSubMenu="matMenu" xPosition="before">
-        <button mat-menu-item>
+        <a mat-menu-item routerLink="/tasks">
           <mat-icon>voicemail</mat-icon>
           <span>Tasks</span>
-        </button>
+        </a>
         <mat-divider></mat-divider>
         <button mat-menu-item>
           <mat-icon>logout</mat-icon>
           <span>Logout</span>
         </button>
       </mat-menu>
-
     </mat-toolbar>
-
     <router-outlet></router-outlet>
 
   </mat-sidenav-content>

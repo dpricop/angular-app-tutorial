@@ -1,1 +1,46 @@
-<p>task works!</p>
+<div *ngIf="taskService.myTasks.length;else noTasks">
+  <mat-list role="list" *ngFor="let task of taskService.myTasks; let i = index">
+    <mat-list-item role="listitem">
+      {{task.title}}
+        <button mat-button [disabled]="task.completed" (click)="finishTask(task.id)">
+          <mat-icon color="primary">done</mat-icon>
+          <span>Finish</span>
+        </button>
+      <button mat-button (click)="removeTask(task.id)">
+        <mat-icon color="accent">delete_outline</mat-icon>
+        <span>Remove</span>
+      </button>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  </mat-list>
+
+  <mat-list role="list" *ngFor="let task of taskService.myTasks; let i = index">
+    <mat-list-item role="listitem">
+      {{task.title}}
+      <button mat-button [matMenuTriggerFor]="taskOptions">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #taskOptions="matMenu" xPosition="before">
+        <button mat-menu-item [disabled]="task.completed" (click)="finishTask(task.id)">
+          <mat-icon color="primary">done</mat-icon>
+          <span>Finish</span>
+        </button>
+        <button mat-menu-item (click)="removeTask(task.id)">
+          <mat-icon color="accent">delete_outline</mat-icon>
+          <span>Remove</span>
+        </button>
+      </mat-menu>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  </mat-list>
+</div>
+
+
+<ng-template #noTasks>
+  <mat-list role="list">
+    <mat-list-item role="listitem">
+      No tasks for today !
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  </mat-list>
+</ng-template>
