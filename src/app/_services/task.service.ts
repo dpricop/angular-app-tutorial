@@ -1,4 +1,6 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {Observable, tap} from "rxjs";
 
 export interface Task {
   id: number
@@ -6,29 +8,28 @@ export interface Task {
   completed: boolean
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class TaskService {
-  //TODO fetchData from https://jsonplaceholder.typicode.com/todos
-  constructor() { }
+  public dataSource: Task[] = [];
+  constructor(private httpClient: HttpClient) { }
 
-  public myTasks: Task[] = [
-    {id: 1, title: "Angular Intro", completed: false},
-    {id: 2, title: "Angular Routing", completed: true},
-    {id: 3, title: "Angular Material", completed: false}
-  ]
-
-  addTask(task: Task){
-    //TODO
+  fetchData(): Observable<Task[]>{
+    return this.httpClient.get<Task[]>("https://jsonplaceholder.typicode.com/todos?_limit=3").pipe(tap(( todos) => this.dataSource = todos));
   }
 
-  finishTask(id:number){
-    //TODO
+  insertTask(task: Task){
+    const lastTaskId = this.dataSource.reduce((prev, current) => (prev.id > current.id) ? prev : current).id;
+    task.id += lastTaskId;
+    this.dataSource.push(task);
   }
 
-  removeTask(id:number){
-    this.myTasks = this.myTasks.filter(t => t.id !== id)
+  finishTask(id: number){
+    const task = this.dataSource.find((t) => t.id === id);
+    if(task)
+      task.completed = true;
   }
 
+  removeTask(id: number){
+    this.dataSource = this.dataSource.filter(t => t.id !== id)
+  }
 }

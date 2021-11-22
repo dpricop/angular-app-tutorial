@@ -9,6 +9,8 @@ import {TestCmpComponent} from "./_components/test-cmp/test-cmp.component";
 import { MaterialModule } from "./_modules/material/material.module";
 import { AppRoutingModule } from "./app-routing.module";
 import { TaskComponent } from './_components/task/task.component';
+import { FormsModule } from "@angular/forms";
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { TaskComponent } from './_components/task/task.component';
     BrowserAnimationsModule,
     LayoutModule,
     MaterialModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
